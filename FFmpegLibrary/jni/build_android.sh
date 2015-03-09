@@ -449,3 +449,23 @@ build_freetype2
 build_ass
 build_ffmpeg
 build_one
+
+#arm64 v8a
+EABIARCH=aarch64-linux-android
+HOST=aarch64
+ARCH=arm64
+CPU=arm64
+#OPTIMIZE_CFLAGS="-mfloat-abi=softfp -mfpu=neon -marm -march=$CPU -mtune=cortex-a8 -mthumb -D__thumb__ "
+PREFIX=../ffmpeg-build/arm64-v8a
+OUT_LIBRARY=../ffmpeg-build/arm64-v8a/libffmpeg-neon.so
+ADDITIONAL_CONFIGURE_FLAG=--enable-neon
+SONAME=libffmpeg-neon.so
+PREBUILT=$NDK/toolchains/aarch64-linux-android-4.9/prebuilt/$OS-x86_64
+PLATFORM_VERSION=android-21
+build_amr
+build_aac
+build_fribidi
+build_freetype2
+build_ass
+build_ffmpeg
+build_one
