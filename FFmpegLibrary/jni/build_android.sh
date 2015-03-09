@@ -42,7 +42,12 @@ function build_x264
 	export LDFLAGS="-Wl,-rpath-link=$PLATFORM/usr/lib -L$PLATFORM/usr/lib -nostdlib -lc -lm -ldl -llog"
 
 	cd x264
-	./configure --prefix=$(pwd)/$PREFIX --host=$ARCH-linux --enable-static $ADDITIONAL_CONFIGURE_FLAG || exit 1
+	./configure \
+        --prefix=$(pwd)/$PREFIX \
+        --host=$HOST-linux \
+        --enable-static \
+        $ADDITIONAL_CONFIGURE_FLAG \
+        || exit 1
 
 	make clean || exit 1
 	make -j4 install || exit 1
@@ -70,7 +75,7 @@ function build_amr
 	cd vo-amrwbenc
 	./configure \
 	    --prefix=$(pwd)/$PREFIX \
-	    --host=$ARCH-linux \
+	    --host=$HOST-linux \
 	    --disable-dependency-tracking \
 	    --disable-shared \
 	    --enable-static \
@@ -106,7 +111,7 @@ function build_aac
 	export PKG_CONFIG_PATH=$(pwd)/$PREFIX/lib/pkgconfig/
 	./configure \
 	    --prefix=$(pwd)/$PREFIX \
-	    --host=$ARCH-linux \
+	    --host=$HOST-linux \
 	    --disable-dependency-tracking \
 	    --disable-shared \
 	    --enable-static \
@@ -141,7 +146,7 @@ function build_freetype2
 	export PKG_CONFIG_PATH=$(pwd)/$PREFIX/lib/pkgconfig/
 	./configure \
 	    --prefix=$(pwd)/$PREFIX \
-	    --host=$ARCH-linux \
+	    --host=$HOST-linux \
 	    --disable-dependency-tracking \
 	    --disable-shared \
 	    --enable-static \
@@ -176,7 +181,7 @@ function build_ass
 	export PKG_CONFIG_PATH=$(pwd)/$PREFIX/lib/pkgconfig/
 	./configure \
 	    --prefix=$(pwd)/$PREFIX \
-	    --host=$ARCH-linux \
+	    --host=$HOST-linux \
 	    --disable-fontconfig \
 	    --disable-dependency-tracking \
 	    --disable-shared \
@@ -210,7 +215,7 @@ function build_fribidi
 	cd fribidi
 	./configure \
 	    --prefix=$(pwd)/$PREFIX \
-	    --host=$ARCH-linux \
+	    --host=$HOST-linux \
 	    --disable-bin \
 	    --disable-dependency-tracking \
 	    --disable-shared \
@@ -349,6 +354,7 @@ function build_one {
 
 #arm v5
 EABIARCH=arm-linux-androideabi
+HOST=arm
 ARCH=arm
 CPU=armv5
 OPTIMIZE_CFLAGS="-marm -march=$CPU"
@@ -368,6 +374,7 @@ build_one
 
 #x86
 EABIARCH=i686-linux-android
+HOST=x86
 ARCH=x86
 OPTIMIZE_CFLAGS="-m32"
 PREFIX=../ffmpeg-build/x86
@@ -386,6 +393,7 @@ build_one
 
 #mips
 EABIARCH=mipsel-linux-android
+HOST=mips
 ARCH=mips
 OPTIMIZE_CFLAGS="-EL -march=mips32 -mips32 -mhard-float"
 PREFIX=../ffmpeg-build/mips
@@ -404,6 +412,7 @@ build_one
 
 #arm v7vfpv3
 EABIARCH=arm-linux-androideabi
+HOST=arm
 ARCH=arm
 CPU=armv7-a
 OPTIMIZE_CFLAGS="-mfloat-abi=softfp -mfpu=vfpv3-d16 -marm -march=$CPU "
@@ -423,6 +432,7 @@ build_one
 
 #arm v7 + neon (neon also include vfpv3-32)
 EABIARCH=arm-linux-androideabi
+HOST=arm
 ARCH=arm
 CPU=armv7-a
 OPTIMIZE_CFLAGS="-mfloat-abi=softfp -mfpu=neon -marm -march=$CPU -mtune=cortex-a8 -mthumb -D__thumb__ "
