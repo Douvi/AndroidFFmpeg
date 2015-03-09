@@ -457,9 +457,9 @@ ARCH=arm64
 CPU=arm64
 #OPTIMIZE_CFLAGS="-mfloat-abi=softfp -mfpu=neon -marm -march=$CPU -mtune=cortex-a8 -mthumb -D__thumb__ "
 PREFIX=../ffmpeg-build/arm64-v8a
-OUT_LIBRARY=../ffmpeg-build/arm64-v8a/libffmpeg-neon.so
-ADDITIONAL_CONFIGURE_FLAG=--enable-neon
-SONAME=libffmpeg-neon.so
+OUT_LIBRARY=../ffmpeg-build/arm64-v8a/libffmpeg.so
+ADDITIONAL_CONFIGURE_FLAG=
+SONAME=libffmpeg.so
 PREBUILT=$NDK/toolchains/aarch64-linux-android-4.9/prebuilt/$OS-x86_64
 PLATFORM_VERSION=android-21
 build_amr
